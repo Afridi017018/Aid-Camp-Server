@@ -28,4 +28,51 @@ const userInfo = async(req,res)=>{
 }
 
 
-module.exports = {userInfo}
+const getUserInfo = async(req,res)=>{
+    try {
+        
+        const {email} = req.query;
+
+        const data = await User.findOne({email});
+
+        res.json({
+            success: true,
+            message: "User's Information",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+}
+
+const updateUserInfo = async(req,res)=>{
+    try {
+        
+        const {email,name,phone,interests} = req.body;
+
+        console.log(req.body)
+
+        const data = await User.findOneAndUpdate({email},{name,phone,interests});
+
+        res.json({
+            success: true,
+            message: "Profile Information Updated !",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+}
+
+
+module.exports = {userInfo, getUserInfo, updateUserInfo}
