@@ -26,18 +26,6 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: "",
         },
-        specialty: {
-            type: String,
-            default: null,
-        },
-        certifications: {
-            type: String,
-            default: null,
-        },
-        address: {
-            type: String,
-            default: "",
-        },
 
         role: {
             type: String,
