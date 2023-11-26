@@ -1,58 +1,86 @@
 const Camp = require("../models/campModel");
 
 
-const addCamp = async (req,res)=>{
+const addCamp = async (req, res) => {
 
-   try{
-    const obj = req.body;
+    try {
+        const obj = req.body;
 
-    const newCamp = new Camp(obj)
+        const newCamp = new Camp(obj)
 
-    const data = await newCamp.save();
+        const data = await newCamp.save();
 
-    res.json({
-        success: true,
-        message: "Camp Added !",
-        data
+        res.json({
+            success: true,
+            message: "Camp Added !",
+            data
 
-    });
+        });
 
-} catch (error) {
-    res.status(500).json({
-        success: false,
-        message: error.message,
-    });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+
 }
 
 
+
+const getAvailableCamps = async (req, res) => {
+
+    try {
+
+
+        const data = await Camp.find({}).sort({ createdAt: -1 });
+
+        res.json({
+            success: true,
+            message: "All Camps",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+
 }
 
 
 
-const getAvailableCamps = async (req,res)=>{
 
-    try{
- 
- 
-     const data = await Camp.find({}).sort({createdAt: -1});
- 
-     res.json({
-         success: true,
-         message: "All Camps",
-         data
- 
-     });
- 
- } catch (error) {
-     res.status(500).json({
-         success: false,
-         message: error.message,
-     });
- }
- 
- 
- }
+const getUpcomingCamps = async (req, res) => {
+
+    try {
 
 
+        const data = await Camp.find({ upcoming: true }).sort({ createdAt: -1 });
 
-module.exports = {addCamp, getAvailableCamps}
+        res.json({
+            success: true,
+            message: "All upcoming camps",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+
+}
+
+
+
+
+module.exports = { addCamp, getAvailableCamps, getUpcomingCamps }
