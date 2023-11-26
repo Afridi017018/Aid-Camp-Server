@@ -34,7 +34,7 @@ const getAvailableCamps = async (req, res) => {
     try {
 
 
-        const data = await Camp.find({}).sort({ createdAt: -1 });
+        const data = await Camp.find({ upcoming: false }).sort({ createdAt: -1 });
 
         res.json({
             success: true,
@@ -111,5 +111,31 @@ const getPopularCamps = async (req, res) => {
 
 
 
+const getCampsByOrganizer = async (req, res) => {
 
-module.exports = { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps }
+    try {
+        const { email } = req.query;
+
+        const data = await Camp.find({ organizer: email }).sort({ createdAt: -1 });
+
+        res.json({
+            success: true,
+            message: "All camps by organizer ",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+
+}
+
+
+
+
+module.exports = { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer }
