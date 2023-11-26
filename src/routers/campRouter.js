@@ -1,11 +1,12 @@
 const express = require('express');
-const { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp} = require('../controllers/campController');
+const { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp, deleteCamp} = require('../controllers/campController');
 
 const router = express.Router();
 
 
 router.post('/add-camp', addCamp);
 router.put('/update-camp', updateCamp);
+router.delete('/delete-camp/:campId', deleteCamp);
 
 router.get('/get-available-camps', getAvailableCamps);
 router.get('/get-upcoming-camps', getUpcomingCamps);

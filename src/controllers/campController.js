@@ -167,4 +167,35 @@ const updateCamp = async (req, res) => {
 }
 
 
-module.exports = { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp }
+
+
+
+const deleteCamp = async (req, res) => {
+
+    try {
+        const { campId } = req.params;
+        // console.log(obj)
+
+        const data = await Camp.findByIdAndDelete({_id:campId});
+
+
+        res.json({
+            success: true,
+            message: "Successfully Deleted ! ",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+
+}
+
+
+
+module.exports = { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp, deleteCamp }
