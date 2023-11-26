@@ -61,11 +61,11 @@ const campSchema = new mongoose.Schema(
         },
         upcoming: {
             type: Boolean,
-            required
+            default: false
         },
         popular: {
             type: Boolean,
-            required
+            default: false
         },
 
 

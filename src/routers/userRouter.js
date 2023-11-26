@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 router.post('/user-info', userInfo);
-router.post('/get-user-info', getUserInfo);
+router.get('/get-user-info', getUserInfo);
 router.put('/update-user-info', updateUserInfo);
 
 

@@ -32,6 +32,7 @@ const getUserInfo = async(req,res)=>{
     try {
         
         const {email} = req.query;
+        // console.log(email)
 
         const data = await User.findOne({email});
 
