@@ -53,11 +53,10 @@ const getUserInfo = async(req,res)=>{
 const updateUserInfo = async(req,res)=>{
     try {
         
-        const {email,name,phone,interests} = req.body;
+        const {email,name,phone,interests, address} = req.body;
 
-        console.log(req.body)
 
-        const data = await User.findOneAndUpdate({email},{name,phone,interests});
+        const data = await User.findOneAndUpdate({email},{name,phone,interests, address});
 
         res.json({
             success: true,
