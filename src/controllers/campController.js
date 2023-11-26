@@ -1,3 +1,4 @@
+const { findById } = require("../models/campModel");
 const Camp = require("../models/campModel");
 
 
@@ -137,5 +138,33 @@ const getCampsByOrganizer = async (req, res) => {
 
 
 
+const updateCamp = async (req, res) => {
 
-module.exports = { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer }
+    try {
+        const { campId, name, image, fees, date, time, location, service, professional, target, description } = req.body;
+        // console.log(obj)
+
+        const data = await Camp.findByIdAndUpdate({ _id: campId }, { name, image, fees, date, time, location, service, professional, target, description });
+
+
+
+
+        res.json({
+            success: true,
+            message: "Successfully Updated ! ",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+
+}
+
+
+module.exports = { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp }
