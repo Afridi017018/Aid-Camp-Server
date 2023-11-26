@@ -29,4 +29,30 @@ const addCamp = async (req,res)=>{
 
 
 
-module.exports = {addCamp}
+const getAvailableCamps = async (req,res)=>{
+
+    try{
+ 
+ 
+     const data = await Camp.find({}).sort({createdAt: -1});
+ 
+     res.json({
+         success: true,
+         message: "All Camps",
+         data
+ 
+     });
+ 
+ } catch (error) {
+     res.status(500).json({
+         success: false,
+         message: error.message,
+     });
+ }
+ 
+ 
+ }
+
+
+
+module.exports = {addCamp, getAvailableCamps}
