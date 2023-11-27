@@ -199,64 +199,6 @@ const deleteCamp = async (req, res) => {
 
 
 
-// const updateCamp = async (req, res) => {
-
-//     try {
-//         const { campId, name, image, fees, date, time, location, service, professional, target, description } = req.body;
-//         // console.log(obj)
-
-//         const data = await Camp.findByIdAndUpdate({ _id: campId }, { name, image, fees, date, time, location, service, professional, target, description });
-
-
-
-
-//         res.json({
-//             success: true,
-//             message: "Successfully Updated ! ",
-//             data
-
-//         });
-
-//     } catch (error) {
-//         res.status(500).json({
-//             success: false,
-//             message: error.message,
-//         });
-//     }
-
-
-// }
-
-
-
-
-
-// const deleteCamp = async (req, res) => {
-
-//     try {
-//         const { campId } = req.params;
-//         // console.log(obj)
-
-//         const data = await Camp.findByIdAndDelete({_id:campId});
-
-
-//         res.json({
-//             success: true,
-//             message: "Successfully Deleted ! ",
-//             data
-
-//         });
-
-//     } catch (error) {
-//         res.status(500).json({
-//             success: false,
-//             message: error.message,
-//         });
-//     }
-
-
-// }
-
 
 
 
@@ -286,4 +228,34 @@ const getUpcomingCampsByOrganizer = async (req, res) => {
 
 
 
-module.exports = { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp, deleteCamp, getUpcomingCampsByOrganizer }
+
+
+const getCampById = async (req, res) => {
+
+    try {
+        const { campId } = req.params;
+        console.log(campId)
+
+        const data = await Camp.findById({_id: campId});
+console.log(data)
+        res.json({
+            success: true,
+            message: "Camp by Id ",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+
+}
+
+
+
+
+module.exports = { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp, deleteCamp, getUpcomingCampsByOrganizer, getCampById }
