@@ -234,10 +234,9 @@ const getCampById = async (req, res) => {
 
     try {
         const { campId } = req.params;
-        console.log(campId)
 
         const data = await Camp.findById({_id: campId});
-console.log(data)
+
         res.json({
             success: true,
             message: "Camp by Id ",
