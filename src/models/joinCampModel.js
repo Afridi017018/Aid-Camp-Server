@@ -57,6 +57,6 @@ const joinCampsSchema = new mongoose.Schema(
     }
 );
 
-const Camp = mongoose.model("camps", campSchema);
+const Join = mongoose.model("join-camps", joinCampsSchema);
 
-module.exports = Camp;
+module.exports = Join;
