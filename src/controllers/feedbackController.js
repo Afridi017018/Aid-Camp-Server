@@ -25,6 +25,28 @@ const giveFeedback = async(req,res)=>{
     }
 }
 
+const getFeedbacks = async(req,res)=>{
+    try {
+        
+
+        const data = await Feedback.find().populate("campId").sort({createdAt: -1}).limit(4)
 
 
-module.exports = { giveFeedback }
+        res.json({
+            success: true,
+            message: "Feedbacks !",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+}
+
+
+
+module.exports = { giveFeedback, getFeedbacks }
