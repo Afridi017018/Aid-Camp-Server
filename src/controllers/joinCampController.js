@@ -82,6 +82,29 @@ const getRegCamps = async (req, res) => {
 }
 
 
+const paymentHistory = async (req, res) => {
+    try {
+
+        const {email} = req.query;
+
+        const data = await Join.find({email, payment_status: "paid"}).populate("campId").populate("userId").sort({createdAt: -1})
+
+        res.json({
+            success: true,
+            message: "All Paid Camps !",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+}
+
+
 const getSingleRegCamps = async (req, res) => {
     try {
 
@@ -171,4 +194,4 @@ const stripePayment = async (req, res) => {
 
 
 
-module.exports = { joinReg, getRegCamps, stripePayment,getSingleRegCamps, updateJoinReg, deleteRegCamp }
+module.exports = { joinReg, getRegCamps, stripePayment,getSingleRegCamps, updateJoinReg, deleteRegCamp, paymentHistory }
