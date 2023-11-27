@@ -1,5 +1,5 @@
 const express = require('express');
-const { joinReg, getRegCamps, stripePayment, getSingleRegCamps, updateJoinReg } = require('../controllers/joinCampController');
+const { joinReg, getRegCamps, stripePayment, getSingleRegCamps, updateJoinReg, deleteRegCamp } = require('../controllers/joinCampController');
 
 
 const router = express.Router();
@@ -13,5 +13,6 @@ router.put('/update-join-reg', updateJoinReg )
 
 router.post('/create-payment-intent', stripePayment);
 
+router.delete('/delete-reg-camp/:id',deleteRegCamp)
 
 module.exports = router;

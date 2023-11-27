@@ -44,7 +44,7 @@ const updateJoinReg = async (req, res) => {
 
         res.json({
             success: true,
-            message: "Registration Successful !",
+            message: "Payment Successful !",
             // data
 
         });
@@ -145,4 +145,30 @@ const stripePayment = async (req, res) => {
 
 
 
-module.exports = { joinReg, getRegCamps, stripePayment,getSingleRegCamps, updateJoinReg }
+
+
+  const deleteRegCamp = async (req, res) => {
+    try {
+
+        const {id} = req.params;
+
+        const data = await Join.findByIdAndDelete({_id: id})
+
+        res.json({
+            success: true,
+            message: "Registered Camp Deleted !",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+}
+
+
+
+module.exports = { joinReg, getRegCamps, stripePayment,getSingleRegCamps, updateJoinReg, deleteRegCamp }
