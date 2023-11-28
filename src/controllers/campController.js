@@ -90,8 +90,20 @@ const getPopularCamps = async (req, res) => {
 
     try {
 
+        const { sort } = req.query;
 
-        const data = await Camp.find({ popular: true }).sort({ createdAt: -1 }).limit(6);
+        let data;
+
+
+        if (sort === "true") {
+            data = await Camp.find({ popular: true }).sort({ participant_count: -1, createdAt: -1 }).limit(6);
+        }
+
+        else {
+            data = await Camp.find({ popular: true }).sort({ createdAt: -1 }).limit(6);
+        }
+
+
 
         res.json({
             success: true,
@@ -176,7 +188,7 @@ const deleteCamp = async (req, res) => {
         const { campId } = req.params;
         // console.log(obj)
 
-        const data = await Camp.findByIdAndDelete({_id:campId});
+        const data = await Camp.findByIdAndDelete({ _id: campId });
 
 
         res.json({
@@ -207,7 +219,7 @@ const getUpcomingCampsByOrganizer = async (req, res) => {
     try {
         const { email } = req.query;
 
-        const data = await Camp.find({ organizer: email, upcoming:true }).sort({ createdAt: -1 });
+        const data = await Camp.find({ organizer: email, upcoming: true }).sort({ createdAt: -1 });
 
         res.json({
             success: true,
@@ -235,7 +247,7 @@ const getCampById = async (req, res) => {
     try {
         const { campId } = req.params;
 
-        const data = await Camp.findById({_id: campId});
+        const data = await Camp.findById({ _id: campId });
 
         res.json({
             success: true,
@@ -259,10 +271,10 @@ const getCampById = async (req, res) => {
 const publishCamp = async (req, res) => {
 
     try {
-        const {id} = req.params;
+        const { id } = req.params;
 
 
-        const data = await Camp.findByIdAndUpdate({_id: id}, {upcoming: false, popular: true});
+        const data = await Camp.findByIdAndUpdate({ _id: id }, { upcoming: false, popular: true });
 
         res.json({
             success: true,
