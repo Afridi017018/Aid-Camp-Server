@@ -66,13 +66,38 @@ const acceptInterestedProfessionals = async (req, res) => {
         const { id } = req.params;
     
 
-        const info = await Professional.findByIdAndUpdate({ _id: id },{approve_status: "accepted"});
+        const info = await Professional.findByIdAndUpdate({ _id: id },{approve_status: "accepted"}).populate("userId");
+
+// console.log(info.userId.name)
+
+        const data = await Camp.findById({ _id: info.campId.toString() });
+
+
+        await Camp.findByIdAndUpdate({ _id: info.campId.toString() }, { professional_count: data.professional_count + 1, professional: [...data.professional, info.userId.name ] })
+
+
+        // const info = await Professional.findById({ _id: id }).populate("userId");
+        // console.log(info)
 
 
 
-        const count = await Camp.findById({ _id: info.campId.toString() });
 
-        await Camp.findByIdAndUpdate({ _id: info.campId.toString() }, { professional_count: count.professional_count + 1 })
+
+
+        // const info = await Professional.findById({ _id: id }).populate("userId");
+         
+        // console.log(info);
+
+
+
+        // const count = await Camp.findById({ _id: info.campId.toString() });
+
+        // const data = await Camp.findById({ _id: info.campId.toString() });
+
+        // const dataa  = [...data.professional, "kkkk"]
+
+
+        // console.log(dataa);
 
 
         res.json({

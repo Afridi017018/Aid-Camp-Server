@@ -256,5 +256,32 @@ const getCampById = async (req, res) => {
 
 
 
+const publishCamp = async (req, res) => {
 
-module.exports = { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp, deleteCamp, getUpcomingCampsByOrganizer, getCampById }
+    try {
+        const {id} = req.params;
+
+
+        const data = await Camp.findByIdAndUpdate({_id: id}, {upcoming: false, popular: true});
+
+        res.json({
+            success: true,
+            message: "Successfully Published !",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+
+}
+
+
+
+
+module.exports = { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp, deleteCamp, getUpcomingCampsByOrganizer, getCampById, publishCamp }

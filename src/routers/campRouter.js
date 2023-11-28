@@ -1,5 +1,5 @@
 const express = require('express');
-const { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp, deleteCamp, getUpcomingCampsByOrganizer, getCampById} = require('../controllers/campController');
+const { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp, deleteCamp, getUpcomingCampsByOrganizer, getCampById, publishCamp} = require('../controllers/campController');
 
 const router = express.Router();
 
@@ -19,7 +19,7 @@ router.get('/get-camps-by-organizer', getCampsByOrganizer)
 
 router.get('/get-camp-by-id/:campId',getCampById)
 
-
+router.put('/publish-camp/:id', publishCamp)
 
 
 
