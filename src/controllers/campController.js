@@ -295,5 +295,57 @@ const publishCamp = async (req, res) => {
 
 
 
+const getAllPopularCamps = async (req, res) => {
 
-module.exports = { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp, deleteCamp, getUpcomingCampsByOrganizer, getCampById, publishCamp }
+    try {
+
+            data = await Camp.find({ popular: true }).sort({ participant_count: -1, createdAt: -1 });
+
+
+        res.json({
+            success: true,
+            message: "All popular camps",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+
+}
+
+
+
+
+const getAllUpcomingCamps = async (req, res) => {
+
+    try {
+
+            data = await Camp.find({ upcoming: true }).sort({ participant_count: -1, createdAt: -1 });
+
+
+        res.json({
+            success: true,
+            message: "All upcoming camps",
+            data
+
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+
+}
+
+
+
+module.exports = { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp, deleteCamp, getUpcomingCampsByOrganizer, getCampById, publishCamp, getAllPopularCamps, getAllUpcomingCamps }
