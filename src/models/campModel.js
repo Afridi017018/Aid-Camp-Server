@@ -35,9 +35,8 @@ const campSchema = new mongoose.Schema(
             required: true,
         },
         professional: {
-            type: String,
+            type: Array,
             required: true,
-            trim: true
         },
         target: {
             type: String,

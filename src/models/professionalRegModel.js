@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const joinCampsSchema = new mongoose.Schema(
+const professionalSchema = new mongoose.Schema(
     {
 
         userId: {
@@ -21,19 +21,8 @@ const joinCampsSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        age: {
-            type: Number,
-            required: true,
-        },
-        gender: {
-            type: String,
-            required: true,
-        },
-        emergency: {
-            type: String,
-            required: true,
-        },
-        healthInfo: {
+        
+        specialization: {
             type: String,
             required: true,
         },
@@ -41,18 +30,11 @@ const joinCampsSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        payment_status: {
-            type: String,
-            default: "unpaid"
-        },
-        confirmation_status: {
+        approve_status: {
             type: String,
             default: "pending"
         },
-        transaction: {
-            type: String,
-            default: ""
-        },
+
 
     },
 
@@ -61,6 +43,6 @@ const joinCampsSchema = new mongoose.Schema(
     }
 );
 
-const Join = mongoose.model("join-camps", joinCampsSchema);
+const Professional= mongoose.model("InterestedProfessionals", professionalSchema);
 
-module.exports = Join;
+module.exports = Professional;

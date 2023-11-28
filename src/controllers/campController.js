@@ -1,4 +1,4 @@
-const { findById } = require("../models/campModel");
+
 const Camp = require("../models/campModel");
 
 
