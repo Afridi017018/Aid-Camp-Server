@@ -68,36 +68,12 @@ const acceptInterestedProfessionals = async (req, res) => {
 
         const info = await Professional.findByIdAndUpdate({ _id: id },{approve_status: "accepted"}).populate("userId");
 
-// console.log(info.userId.name)
 
         const data = await Camp.findById({ _id: info.campId.toString() });
 
 
         await Camp.findByIdAndUpdate({ _id: info.campId.toString() }, { professional_count: data.professional_count + 1, professional: [...data.professional, info.userId.name ] })
 
-
-        // const info = await Professional.findById({ _id: id }).populate("userId");
-        // console.log(info)
-
-
-
-
-
-
-        // const info = await Professional.findById({ _id: id }).populate("userId");
-         
-        // console.log(info);
-
-
-
-        // const count = await Camp.findById({ _id: info.campId.toString() });
-
-        // const data = await Camp.findById({ _id: info.campId.toString() });
-
-        // const dataa  = [...data.professional, "kkkk"]
-
-
-        // console.log(dataa);
 
 
         res.json({
@@ -118,4 +94,34 @@ const acceptInterestedProfessionals = async (req, res) => {
 
 
 
-module.exports = {professionalReg, getInterestedProfessionals, acceptInterestedProfessionals}
+
+const getAcceptedCamps = async (req, res) => {
+    try {
+
+        const { email } = req.query;
+
+        const data = await Professional.find({ email, approve_status: "accepted" }).populate("userId").populate("campId");
+
+
+
+        res.json({
+            success: true,
+            message: "All accepted interested camps !",
+            data
+
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+}
+
+
+
+
+
+module.exports = {professionalReg, getInterestedProfessionals, acceptInterestedProfessionals, getAcceptedCamps}
