@@ -1,7 +1,9 @@
 const express = require('express');
-const { userInfo, getUserInfo, updateUserInfo } = require('../controllers/userController');
+const { userInfo, getUserInfo, updateUserInfo, accessToken } = require('../controllers/userController');
 
 const router = express.Router();
+
+
 
 
 

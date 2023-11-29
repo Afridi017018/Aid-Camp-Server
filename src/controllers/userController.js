@@ -75,4 +75,4 @@ const updateUserInfo = async(req,res)=>{
 }
 
 
-module.exports = {userInfo, getUserInfo, updateUserInfo}
+module.exports = {userInfo, getUserInfo, updateUserInfo }
