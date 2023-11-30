@@ -1,33 +1,34 @@
 const express = require('express');
 const { joinReg, getRegCamps, stripePayment, getSingleRegCamps, updateJoinReg, deleteRegCamp, paymentHistory, confirmedHistory, manageRegCamps, updateConfirm, getInterestedParticipants, acceptInterestedParticipants } = require('../controllers/joinCampController');
+const { verifyToken } = require('../middlewares/verifyToken');
 
 
 const router = express.Router();
 
-router.post('/join-reg', joinReg )
-router.get('/get-reg-camps', getRegCamps )
-router.get('/get-single-reg-camp/:id', getSingleRegCamps )
+router.post('/join-reg', verifyToken, joinReg )
+router.get('/get-reg-camps', verifyToken, getRegCamps )
+router.get('/get-single-reg-camp/:id', verifyToken, getSingleRegCamps )
 
 
 
-router.put('/update-join-reg', updateJoinReg )
+router.put('/update-join-reg', verifyToken, updateJoinReg )
 
-router.post('/create-payment-intent', stripePayment);
+router.post('/create-payment-intent', verifyToken, stripePayment);
 
-router.get('/payment-history', paymentHistory )
+router.get('/payment-history', verifyToken, paymentHistory )
 
-router.get('/confirmed-history', confirmedHistory )
+router.get('/confirmed-history', verifyToken, confirmedHistory )
 
-router.delete('/delete-reg-camp/:id',deleteRegCamp)
+router.delete('/delete-reg-camp/:id', verifyToken,deleteRegCamp)
 
 //organizer
-router.get('/manage-reg-camps',manageRegCamps)
+router.get('/manage-reg-camps', verifyToken,manageRegCamps)
 
-router.put('/update-confirm',updateConfirm)
+router.put('/update-confirm', verifyToken,updateConfirm)
 
-router.get('/get-interested-participants/:id', getInterestedParticipants)
+router.get('/get-interested-participants/:id', verifyToken, getInterestedParticipants)
 
-router.put('/accept-interested-participants/:id', acceptInterestedParticipants)
+router.put('/accept-interested-participants/:id', verifyToken, acceptInterestedParticipants)
 
 
 module.exports = router;

@@ -17,6 +17,8 @@ app.use(cors({
     origin: [
         'http://127.0.0.1:5173',
         'http://localhost:5173',
+        'https://aid-camp.web.app',
+        'aid-camp.firebaseapp.com',
 
     ],
     credentials: true
@@ -31,7 +33,7 @@ app.use(cookieParser());
 
 
 app.get('/', verifyToken,(req,res)=>{
-    res.send("hiiiiiiii")
+    res.send("testing...")
 })
 
 

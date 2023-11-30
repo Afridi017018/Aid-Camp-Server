@@ -1,17 +1,18 @@
 const express = require('express');
 const { addCamp, getAvailableCamps, getUpcomingCamps, getPopularCamps, getCampsByOrganizer, updateCamp, deleteCamp, getUpcomingCampsByOrganizer, getCampById, publishCamp, getAllPopularCamps, getAllUpcomingCamps} = require('../controllers/campController');
+const { verifyToken } = require('../middlewares/verifyToken');
 
 const router = express.Router();
 
 
-router.post('/add-camp', addCamp);
-router.put('/update-camp', updateCamp);
-router.delete('/delete-camp/:campId', deleteCamp);
+router.post('/add-camp', verifyToken, addCamp);
+router.put('/update-camp', verifyToken, updateCamp);
+router.delete('/delete-camp/:campId', verifyToken, deleteCamp);
 
 router.get('/get-available-camps', getAvailableCamps);
 
 router.get('/get-upcoming-camps', getUpcomingCamps);
-router.get('/get-upcoming-camps-by-organizer', getUpcomingCampsByOrganizer);
+router.get('/get-upcoming-camps-by-organizer', verifyToken, getUpcomingCampsByOrganizer);
 
 router.get('/get-popular-camps', getPopularCamps);
 
