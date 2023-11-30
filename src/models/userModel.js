@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema(
             default: "",
         },
 
+        photo:{
+            type: String,
+            required: true
+        },
+
         address: {
             type: String,
             default: "",

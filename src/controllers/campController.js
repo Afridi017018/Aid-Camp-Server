@@ -129,7 +129,7 @@ const getCampsByOrganizer = async (req, res) => {
     try {
         const { email } = req.query;
 
-        const data = await Camp.find({ organizer: email }).sort({ createdAt: -1 });
+        const data = await Camp.find({ organizer: email, upcoming:false }).sort({ createdAt: -1 });
 
         res.json({
             success: true,

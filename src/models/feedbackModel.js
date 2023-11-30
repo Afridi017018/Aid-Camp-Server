@@ -12,6 +12,10 @@ const feedbacksSchema = new mongoose.Schema(
             ref: "camps",
             required: true,
         },
+        photo: {
+            type: String,
+            required: true,
+        },
         email: {
             type: String,
             required: true,
