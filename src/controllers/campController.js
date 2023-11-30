@@ -34,13 +34,25 @@ const getAvailableCamps = async (req, res) => {
 
     try {
 
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 9;
 
-        const data = await Camp.find({ upcoming: false }).sort({ createdAt: -1 });
+        const skip = (page - 1) * limit;
+
+        const totalCount = await Camp.countDocuments({ upcoming: false });
+        const totalPages = Math.ceil(totalCount / limit);
+
+        const data = await Camp.find({ upcoming: false }).skip(skip).limit(limit).sort({ createdAt: -1 });
 
         res.json({
             success: true,
             message: "All Camps",
-            data
+            data,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                totalRecords: totalCount,
+            },
 
         });
 
@@ -129,7 +141,7 @@ const getCampsByOrganizer = async (req, res) => {
     try {
         const { email } = req.query;
 
-        const data = await Camp.find({ organizer: email, upcoming:false }).sort({ createdAt: -1 });
+        const data = await Camp.find({ organizer: email, upcoming: false }).sort({ createdAt: -1 });
 
         res.json({
             success: true,
@@ -299,7 +311,7 @@ const getAllPopularCamps = async (req, res) => {
 
     try {
 
-            data = await Camp.find({ popular: true }).sort({ participant_count: -1, createdAt: -1 });
+        data = await Camp.find({ popular: true }).sort({ participant_count: -1, createdAt: -1 });
 
 
         res.json({
@@ -326,7 +338,7 @@ const getAllUpcomingCamps = async (req, res) => {
 
     try {
 
-            data = await Camp.find({ upcoming: true }).sort({ participant_count: -1, createdAt: -1 });
+        data = await Camp.find({ upcoming: true }).sort({ participant_count: -1, createdAt: -1 });
 
 
         res.json({
